@@ -1,0 +1,24 @@
+diff -Nru eplip-0.5.6.orig/eplip-drv.c eplip-0.5.6/eplip-drv.c
+--- eplip-0.5.6.orig/eplip-drv.c	2002-05-17 14:55:33.000000000 +0200
++++ eplip-0.5.6/eplip-drv.c	2004-11-01 18:31:26.000000000 +0100
+@@ -43,7 +43,7 @@
+                                 /* Our Driver headers           */
+ #include "sysdep.h"
+ #include "ioport.h"
+-#include "ecp.h"
++#include "ecp.c"
+ 
+ #ifndef MAX_DMA_PHYS_ADDRESS
+ #  define MAX_DMA_PHYS_ADDRESS 0x1000000
+diff -Nru eplip-0.5.6.orig/Makefile eplip-0.5.6/Makefile
+--- eplip-0.5.6.orig/Makefile	2002-05-16 17:19:22.000000000 +0200
++++ eplip-0.5.6/Makefile	2004-11-01 18:31:12.000000000 +0100
+@@ -42,7 +42,6 @@
+ ifdef KCONFIG_ERROR
+ 		$(error $(KCONFIG_ERROR) )
+ endif
+-	$(CC) $(CFLAGS) -pipe -c ecp.c
+ 	$(CC) $(CFLAGS) -pipe -c eplip-drv.c
+-	$(LD) -r -o $@ ecp.o eplip-drv.o
++	$(LD) -r -o $@ eplip-drv.o
+ #	$(LD) -r -o $(TARGET).o ecp.o eplip-drv.o
