@@ -1,15 +1,16 @@
 %define		_rel	1
+%define		_base_name	eplip
 Summary:	EPLIP [Enhanced Parallel Line IP] module 
 Summary(pl):	Modó³ EPLIP [Enhanced parallel Line IP]
-Name:		eplip
+Name:		kernel-%{_base_name}
 Version:	0.5.6
 Release:	%{_rel}@%{_kernel_ver_str}
 Copyright:	GPL
 Group:		Base/Kernel
-Source0:	http://e-plip.sourceforge.net/%{name}-%{version}.tar.gz
+Source0:	http://e-plip.sourceforge.net/%{_base_name}-%{version}.tar.gz
 #BuildRequires:	
 #Requires:	
-Patch0:		kernel-%{name}-Rules.make-fix.patch
+Patch0:		kernel-%{_base_name}-Rules.make-fix.patch
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Prereq:		/sbin/depmod
 
@@ -31,7 +32,7 @@ Prereq:		/sbin/depmod
 %description -n kernel-smp-eplip -l pl
 
 %prep
-%setup -q
+%setup -q -n %{_base_name}-%{version}
 cp Rules.make Rules.make.smp
 %patch0 -p0
 
