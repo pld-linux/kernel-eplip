@@ -1,5 +1,6 @@
---- Rules.make.org	Sun Mar 10 16:14:56 2002
-+++ Rules.make	Wed Jul 10 08:35:18 2002
+diff -uNr eplip-0.5.6.orig/Rules.make eplip-0.5.6/Rules.make
+--- eplip-0.5.6.orig/Rules.make	Sun Mar 10 16:14:56 2002
++++ eplip-0.5.6/Rules.make	Wed Jul 10 09:21:08 2002
 @@ -83,10 +83,6 @@
  
  	CFLAGS +=  -Wall -Wstrict-prototypes  -Wwrite-strings -D__KERNEL__ -DMODULE -I$(INCLUDEDIR)
@@ -11,3 +12,17 @@
  # Prepend modversions.h if we're running with versioning.
  ifdef CONFIG_MODVERSIONS
  	CFLAGS += -DMODVERSIONS -include $(KERNELDIR)/include/linux/modversions.h
+diff -uNr eplip-0.5.6.orig/Rules.make.smp eplip-0.5.6/Rules.make.smp
+--- eplip-0.5.6.orig/Rules.make.smp	Wed Jul 10 09:19:13 2002
++++ eplip-0.5.6/Rules.make.smp	Wed Jul 10 09:20:57 2002
+@@ -83,9 +83,7 @@
+ 
+ 	CFLAGS +=  -Wall -Wstrict-prototypes  -Wwrite-strings -D__KERNEL__ -DMODULE -I$(INCLUDEDIR)
+ 
+-ifdef CONFIG_SMP
+-	CFLAGS += -D__SMP__ -DSMP
+-endif
++	CFLAGS += -D__SMP__ -DSMP -DCONFIG_X86_LOCAL_APIC
+ 
+ # Prepend modversions.h if we're running with versioning.
+ ifdef CONFIG_MODVERSIONS
