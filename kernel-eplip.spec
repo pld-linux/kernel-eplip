@@ -1,3 +1,7 @@
+#
+# Conditional build:
+# _without_dist_kernel - without kernel from distribution
+#
 %define		_base_name	eplip
 Summary:	EPLIP (Enhanced Parallel Line IP) module
 Summary(pl):	Modu³ EPLIP (Enhanced Parallel Line IP)
@@ -11,8 +15,8 @@ Source0:	http://e-plip.sourceforge.net/%{_base_name}-%{version}.tar.gz
 Patch0:		%{name}-Rules.make-fix.patch
 Patch1:		%{name}-WIRING.patch
 %{!?_without_dist_kernel:BuildRequires:         kernel-headers}
-Requires(post,postun):	/sbin/depmod
 %{!?_without_dist_kernel:%requires_releq_kernel_up}
+Requires(post,postun):	/sbin/depmod
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 ExclusiveOS:	Linux
 ExclusiveArch:	%{ix86}
@@ -28,8 +32,8 @@ Summary:	EPLIP (Enhanced Parallel Line IP) SMP module
 Summary(pl):	Modu³ SMP EPLIP (Enhanced Parallel Line IP)
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
-Requires(post,postun):	/sbin/depmod
 %{!?_without_dist_kernel:%requires_releq_kernel_smp}
+Requires(post,postun):	/sbin/depmod
 
 %description -n kernel-smp-eplip
 EPLIP (Enhanced Parallel Line IP) SMP module.
@@ -62,16 +66,16 @@ install eplip.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/misc
 rm -rf $RPM_BUILD_ROOT
 
 %post
-/sbin/depmod -a
+/sbin/depmod -a -F /boot/System.map-%{_kernel_ver} %{_kernel_ver}
 
 %postun
-/sbin/depmod -a
+/sbin/depmod -a -F /boot/System.map-%{_kernel_ver} %{_kernel_ver}
 
-%post -n kernel-smp-eplip
-/sbin/depmod -a
+%post	-n kernel-smp-eplip
+/sbin/depmod -a -F /boot/System.map-%{_kernel_ver}smp %{_kernel_ver}smp
 
 %postun -n kernel-smp-eplip
-/sbin/depmod -a
+/sbin/depmod -a -F /boot/System.map-%{_kernel_ver}smp %{_kernel_ver}smp
 
 %files
 %defattr(644,root,root,755)
