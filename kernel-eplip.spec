@@ -1,6 +1,6 @@
 #
 # Conditional build:
-# _without_dist_kernel - without kernel from distribution
+%bcond_without dist_kernel	# without kernel from distribution
 #
 %define		_base_name	eplip
 Summary:	EPLIP (Enhanced Parallel Line IP) module
@@ -16,9 +16,9 @@ Source0:	http://e-plip.sourceforge.net/%{_base_name}-%{version}.tar.gz
 Patch0:		%{name}-Rules.make-fix.patch
 Patch1:		%{name}-WIRING.patch
 Patch2:		%{name}-gcc3.patch
-%{!?_without_dist_kernel:BuildRequires:	kernel-headers}
+%{?with_dist_kernel:BuildRequires:	kernel-headers}
 BuildRequires:	rpmbuild(macros) >= 1.118
-%{!?_without_dist_kernel:%requires_releq_kernel_up}
+%{?with_dist_kernel:%requires_releq_kernel_up}
 Requires(post,postun):	/sbin/depmod
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 ExclusiveOS:	Linux
@@ -35,7 +35,7 @@ Summary:	EPLIP (Enhanced Parallel Line IP) SMP module
 Summary(pl):	Modu³ SMP EPLIP (Enhanced Parallel Line IP)
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
-%{!?_without_dist_kernel:%requires_releq_kernel_smp}
+%{?with_dist_kernel:%requires_releq_kernel_smp}
 Requires(post,postun):	/sbin/depmod
 
 %description -n kernel-smp-eplip
