@@ -1,6 +1,6 @@
 %define		_rel	1
-Summary:	e-plip
-Summary(pl):	e-plip
+Summary:	EPLIP [Enhanced Parallel Line IP] module 
+Summary(pl):	Modó³ EPLIP [Enhanced parallel Line IP]
 Name:		eplip
 Version:	0.5.6
 Release:	%{_rel}@%{_kernel_ver_str}
@@ -9,6 +9,7 @@ Group:		Base/Kernel
 Source0:	http://e-plip.sourceforge.net/%{name}-%{version}.tar.gz
 #BuildRequires:	
 #Requires:	
+Patch0:		kernel-%{name}-Rules.make-fix.patch
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Prereq:		/sbin/depmod
 
@@ -31,20 +32,23 @@ Prereq:		/sbin/depmod
 
 %prep
 %setup -q
-
-#%patch
+cp Rules.make Rules.make.smp
+%patch0 -p0
 
 %build
-#./configure --prefix=%{_prefix}
-%{__make} SMP=1
-mv eplip.o eplip-smp.o
+cp Rules.make Rules.make.up
+mv Rules.make.smp Rules.make
+%{__make}
+mv eplip.o eplip-smp
+mv Rules.make.up Rules.make
 %{__make} clean
-undef CONFIG_SMP
-%{__make} SMP=0
+%{__make} 
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} prefix=$RPM_BUILD_ROOT%{_prefix} install
+install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}{,smp}/misc
+install eplip-smp $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/misc/eplip.o
+install eplip.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/misc
 
 %post
 /sbin/depmod -a
@@ -64,9 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc
-%attr(,,)
+/lib/modules/%{_kernel_ver}/misc/*
 
 %files -n kernel-smp-eplip
 %defattr(644,root,root,755)
 %doc
-%attr(,,)
+/lib/modules/%{_kernel_ver}smp/misc/*
