@@ -1,35 +1,38 @@
-%define		_rel	1
+%define		_rel	2
 %define		_base_name	eplip
-Summary:	EPLIP [Enhanced Parallel Line IP] module 
-Summary(pl):	Modó³ EPLIP [Enhanced parallel Line IP]
+Summary:	EPLIP (Enhanced Parallel Line IP) module
+Summary(pl):	Modu³ EPLIP (Enhanced Parallel Line IP)
 Name:		kernel-%{_base_name}
 Version:	0.5.6
 Release:	%{_rel}@%{_kernel_ver_str}
-Copyright:	GPL
+License:	GPL
 Group:		Base/Kernel
 Source0:	http://e-plip.sourceforge.net/%{_base_name}-%{version}.tar.gz
-#BuildRequires:	
-#Requires:	
 Patch0:		kernel-%{_base_name}-Rules.make-fix.patch
-Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-Prereq:		/sbin/depmod
-
-%define	_prefix	/usr
+%{!?_without_dist_kernel:BuildRequires:         kernel-headers}
+Requires(post,postun):	/sbin/depmod
+%{!?_without_dist_kernel:%requires_releq_kernel_up}
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
+EPLIP (Enhanced Parallel Line IP) module.
 
 %description -l pl
+Modu³ EPLIP (Enhanced Parallel Line IP).
 
 %package -n kernel-smp-eplip
-Summary:	e-plip
-Summary(pl):	e-plip
+Summary:	EPLIP (Enhanced Parallel Line IP) SMP module
+Summary(pl):	Modu³ SMP EPLIP (Enhanced Parallel Line IP)
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
-Prereq:		/sbin/depmod
+Requires(post,postun):	/sbin/depmod
+%{!?_without_dist_kernel:%requires_releq_kernel_smp}
 
 %description -n kernel-smp-eplip
+EPLIP (Enhanced Parallel Line IP) SMP module.
 
 %description -n kernel-smp-eplip -l pl
+Modu³ SMP EPLIP (Enhanced Parallel Line IP).
 
 %prep
 %setup -q -n %{_base_name}-%{version}
@@ -51,6 +54,9 @@ install -d $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}{,smp}/misc
 install eplip-smp $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}/misc/eplip.o
 install eplip.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/misc
 
+%clean
+rm -rf $RPM_BUILD_ROOT
+
 %post
 /sbin/depmod -a
 
@@ -63,15 +69,10 @@ install eplip.o $RPM_BUILD_ROOT/lib/modules/%{_kernel_ver}smp/misc
 %postun -n kernel-smp-eplip
 /sbin/depmod -a
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 %files
 %defattr(644,root,root,755)
-%doc
 /lib/modules/%{_kernel_ver}/misc/*
 
 %files -n kernel-smp-eplip
 %defattr(644,root,root,755)
-%doc
 /lib/modules/%{_kernel_ver}smp/misc/*
