@@ -12,6 +12,7 @@ Release:	%{_rel}@%{_kernel_ver_str}
 License:	GPL
 Group:		Base/Kernel
 Source0:	http://e-plip.sourceforge.net/%{_base_name}-%{version}.tar.gz
+# Source0-md5:	43019250e7227857ae13bdd39a45494d
 Patch0:		%{name}-Rules.make-fix.patch
 Patch1:		%{name}-WIRING.patch
 %{!?_without_dist_kernel:BuildRequires:         kernel-headers}
