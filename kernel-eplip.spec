@@ -7,7 +7,7 @@ Summary:	EPLIP (Enhanced Parallel Line IP) module
 Summary(pl):	Modu³ EPLIP (Enhanced Parallel Line IP)
 Name:		kernel-%{_base_name}
 Version:	0.5.6
-%define	_rel	8
+%define	_rel	5
 Release:	%{_rel}@%{_kernel_ver_str}
 License:	GPL
 Group:		Base/Kernel
@@ -15,6 +15,7 @@ Source0:	http://e-plip.sourceforge.net/%{_base_name}-%{version}.tar.gz
 # Source0-md5:	43019250e7227857ae13bdd39a45494d
 Patch0:		%{name}-Rules.make-fix.patch
 Patch1:		%{name}-WIRING.patch
+Patch2:		%{name}-gcc3.patch
 %{!?_without_dist_kernel:BuildRequires:	kernel-headers}
 BuildRequires:	rpmbuild(macros) >= 1.118
 %{!?_without_dist_kernel:%requires_releq_kernel_up}
@@ -48,15 +49,16 @@ Modu³ SMP EPLIP (Enhanced Parallel Line IP).
 cp Rules.make Rules.make.smp
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 cp Rules.make Rules.make.up
 mv Rules.make.smp Rules.make
-%{__make} CONFIG_X86=1 CONFIG_ISA=1
+%{__make} KERNELDIR=/usr/src/linux-2.4 CONFIG_X86=1 CONFIG_ISA=1
 mv eplip.o eplip-smp
 mv Rules.make.up Rules.make
 %{__make} clean
-%{__make} CONFIG_X86=1 CONFIG_ISA=1
+%{__make} KERNELDIR=/usr/src/linux-2.4 CONFIG_X86=1 CONFIG_ISA=1
 
 %install
 rm -rf $RPM_BUILD_ROOT
