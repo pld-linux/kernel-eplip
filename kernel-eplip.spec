@@ -1,10 +1,10 @@
 %define		_base_name	eplip
+%define	_rel	3
 Summary:	EPLIP (Enhanced Parallel Line IP) module
 Summary(pl):	Modu³ EPLIP (Enhanced Parallel Line IP)
 Name:		kernel-%{_base_name}
 Version:	0.5.6
 Release:	%{_rel}@%{_kernel_ver_str}
-%define	_rel	3
 License:	GPL
 Group:		Base/Kernel
 Source0:	http://e-plip.sourceforge.net/%{_base_name}-%{version}.tar.gz
