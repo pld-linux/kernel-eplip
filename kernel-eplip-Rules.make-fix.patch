@@ -1,0 +1,13 @@
+--- Rules.make.org	Sun Mar 10 16:14:56 2002
++++ Rules.make	Wed Jul 10 08:35:18 2002
+@@ -83,10 +83,6 @@
+ 
+ 	CFLAGS +=  -Wall -Wstrict-prototypes  -Wwrite-strings -D__KERNEL__ -DMODULE -I$(INCLUDEDIR)
+ 
+-ifdef CONFIG_SMP
+-	CFLAGS += -D__SMP__ -DSMP
+-endif
+-
+ # Prepend modversions.h if we're running with versioning.
+ ifdef CONFIG_MODVERSIONS
+ 	CFLAGS += -DMODVERSIONS -include $(KERNELDIR)/include/linux/modversions.h
