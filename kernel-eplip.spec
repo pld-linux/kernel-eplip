@@ -34,7 +34,7 @@ Prereq:		/sbin/depmod
 %prep
 %setup -q -n %{_base_name}-%{version}
 cp Rules.make Rules.make.smp
-%patch0 -p0
+%patch0 -p1
 
 %build
 cp Rules.make Rules.make.up
