@@ -15,7 +15,7 @@ Source0:	http://e-plip.sourceforge.net/%{_base_name}-%{version}.tar.gz
 # Source0-md5:	43019250e7227857ae13bdd39a45494d
 Patch0:		%{name}-Rules.make-fix.patch
 Patch1:		%{name}-WIRING.patch
-%{!?_without_dist_kernel:BuildRequires:         kernel-headers}
+%{!?_without_dist_kernel:BuildRequires:	kernel-headers}
 BuildRequires:	rpmbuild(macros) >= 1.118
 %{!?_without_dist_kernel:%requires_releq_kernel_up}
 Requires(post,postun):	/sbin/depmod
@@ -86,5 +86,5 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n kernel-smp-eplip
 %defattr(644,root,root,755)
-%doc ChangeLog LAME-TESTS README TODO TODO-done WIRING 
+%doc ChangeLog LAME-TESTS README TODO TODO-done WIRING
 /lib/modules/%{_kernel_ver}smp/misc/*
