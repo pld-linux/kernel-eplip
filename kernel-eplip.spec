@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_without dist_kernel	# without kernel from distribution
+%bcond_without	dist_kernel	# without kernel from distribution
 #
 %define		_base_name	eplip
 Summary:	EPLIP (Enhanced Parallel Line IP) module
