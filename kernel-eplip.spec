@@ -4,7 +4,7 @@
 #
 %define		_base_name	eplip
 Summary:	EPLIP (Enhanced Parallel Line IP) module
-Summary(pl):	Modu≥ EPLIP (Enhanced Parallel Line IP)
+Summary(pl.UTF-8):   Modu≈Ç EPLIP (Enhanced Parallel Line IP)
 Name:		kernel-%{_base_name}
 Version:	0.5.6
 %define	_rel	5
@@ -27,12 +27,12 @@ ExclusiveArch:	%{ix86}
 %description
 EPLIP (Enhanced Parallel Line IP) module.
 
-%description -l pl
-Modu≥ EPLIP (Enhanced Parallel Line IP).
+%description -l pl.UTF-8
+Modu≈Ç EPLIP (Enhanced Parallel Line IP).
 
 %package -n kernel-smp-eplip
 Summary:	EPLIP (Enhanced Parallel Line IP) SMP module
-Summary(pl):	Modu≥ SMP EPLIP (Enhanced Parallel Line IP)
+Summary(pl.UTF-8):   Modu≈Ç SMP EPLIP (Enhanced Parallel Line IP)
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
 %{?with_dist_kernel:%requires_releq_kernel_smp}
@@ -41,8 +41,8 @@ Requires(post,postun):	/sbin/depmod
 %description -n kernel-smp-eplip
 EPLIP (Enhanced Parallel Line IP) SMP module.
 
-%description -n kernel-smp-eplip -l pl
-Modu≥ SMP EPLIP (Enhanced Parallel Line IP).
+%description -n kernel-smp-eplip -l pl.UTF-8
+Modu≈Ç SMP EPLIP (Enhanced Parallel Line IP).
 
 %prep
 %setup -q -n %{_base_name}-%{version}
