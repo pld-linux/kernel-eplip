@@ -4,7 +4,7 @@
 #
 %define		_base_name	eplip
 Summary:	EPLIP (Enhanced Parallel Line IP) module
-Summary(pl.UTF-8):   Moduł EPLIP (Enhanced Parallel Line IP)
+Summary(pl.UTF-8):	Moduł EPLIP (Enhanced Parallel Line IP)
 Name:		kernel-%{_base_name}
 Version:	0.5.6
 %define	_rel	5
@@ -32,7 +32,7 @@ Moduł EPLIP (Enhanced Parallel Line IP).
 
 %package -n kernel-smp-eplip
 Summary:	EPLIP (Enhanced Parallel Line IP) SMP module
-Summary(pl.UTF-8):   Moduł SMP EPLIP (Enhanced Parallel Line IP)
+Summary(pl.UTF-8):	Moduł SMP EPLIP (Enhanced Parallel Line IP)
 Release:	%{_rel}@%{_kernel_ver_str}
 Group:		Base/Kernel
 %{?with_dist_kernel:%requires_releq_kernel_smp}
