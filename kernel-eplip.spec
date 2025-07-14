@@ -47,9 +47,9 @@ Moduł SMP EPLIP (Enhanced Parallel Line IP).
 %prep
 %setup -q -n %{_base_name}-%{version}
 cp Rules.make Rules.make.smp
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
 
 %build
 cp Rules.make Rules.make.up
